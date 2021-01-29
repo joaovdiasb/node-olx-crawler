@@ -28,7 +28,7 @@ async function start (pageLimit, auth, search = '') {
     await page.waitForSelector('ul[id=ad-list]')
 
     const data = await getData(page, 'ul[id=ad-list] li a')
-    links.push(data)
+    links = links.concat(data)
 
     await paginateData(page)
   }
@@ -40,7 +40,7 @@ async function start (pageLimit, auth, search = '') {
   }
 
   async function accessPage (page, links) {
-    for (let link of links[0]) {
+    for (let link of links) {
       console.log(link);
       await page.goto(link)
       await page.waitForSelector('div#miniprofile')
